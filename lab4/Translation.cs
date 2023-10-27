@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace lab4
 {
-    class Translation
+    public class Translation
     {
         public Language Language
         { get; private set; }

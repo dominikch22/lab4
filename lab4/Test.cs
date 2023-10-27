@@ -30,13 +30,13 @@ namespace lab4
         public List<string> answers;
         public int Size;
 
-        public Test(Language language, Translator translator) {
+        public Test(Language language, Translator translator, int size) {
+            random = new Random();
             Translator = translator;
             Language = language;
+            Size = size;
             QuestionsList = CreateQuestionsList();        
-            random = new Random();
-            answers = new List<string>(QuestionsList.Count);
-            Size = 6;
+            answers = new List<string>(size);
         }
 
 
@@ -45,8 +45,9 @@ namespace lab4
             for (int i = 0; i < Size; i++)
             {
                 var dictionary = new List<KeyValuePair<string, string>>(Dictionary);
-                string word = dictionary.ElementAt(random.Next(0, dictionary.Count)).Key;
-                string translatedWord = dictionary.ElementAt(random.Next(0, dictionary.Count)).Value;
+                int randomIndex = random.Next(0, dictionary.Count);
+                string word = dictionary.ElementAt(randomIndex).Key;
+                string translatedWord = dictionary.ElementAt(randomIndex).Value;
                 Question question = new Question(word, translatedWord);
                 if (!QuestionsSet.Add(question))
                 {

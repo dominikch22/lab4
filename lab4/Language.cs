@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace lab4
 {
-    enum Language
+    public enum Language
     {
-        Polski,
-        English
+        English,
+        Polski
+       
     }
 }
