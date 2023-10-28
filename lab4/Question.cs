@@ -30,5 +30,20 @@ namespace lab4
             TranslatedWord = translatedWord;
             Answer = "";
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Question question &&
+                   Word == question.Word &&
+                   TranslatedWord == question.TranslatedWord;
+        }
+
+        public override int GetHashCode()
+        {
+            int hashCode = 1539046180;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Word);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(TranslatedWord);
+            return hashCode;
+        }
     }
 }

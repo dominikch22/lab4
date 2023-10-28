@@ -95,41 +95,52 @@ namespace lab4
             Language selectedLanguage;
             Enum.TryParse(translatorLanguage.Text, out selectedLanguage);
             Translator.Language = selectedLanguage;
+            translatedWordTextBox.Text = Translator.translate(wordTextBox.Text);
         }
 
         private void startNextEnd_Click(object sender, EventArgs e)
         {
-            if (startNextEnd.Text.Equals("Rozpocznij test"))
+            try
             {
-                Language selectedLanguage;
-                Enum.TryParse(languageOfTest.Text, out selectedLanguage);
-                Test = new Test(selectedLanguage, Translator, ((int)numberOfQuestions.Value));
-                startNextEnd.Text = "Następne pytanie";
+                if (startNextEnd.Text.Equals("Rozpocznij test"))
+                {
+                    score.Text = "";
+                    Language selectedLanguage;
+                    Enum.TryParse(languageOfTest.Text, out selectedLanguage);
+                    Test = new Test(selectedLanguage, Translator, ((int)numberOfQuestions.Value));
+                    startNextEnd.Text = "Następne pytanie";
 
-                IndexOfQuestion = 0;
-                Question = Test.QuestionsList[IndexOfQuestion];
-                questionTextBox.Text = Question.Word;
-
-            }
-            else if (startNextEnd.Text.Equals("Następne pytanie"))
-            {
-                Question.Answer = answer.Text;
-                IndexOfQuestion++;
-                if (IndexOfQuestion < Test.Size) {
+                    IndexOfQuestion = 0;
                     Question = Test.QuestionsList[IndexOfQuestion];
                     questionTextBox.Text = Question.Word;
+
                 }
-                if(IndexOfQuestion == Test.Size-1)
-                    startNextEnd.Text = "Zakończ test";               
+                else if (startNextEnd.Text.Equals("Następne pytanie"))
+                {
+                    Question.Answer = answer.Text;
+                    answer.Text = "";
 
-            }
-            else if (startNextEnd.Text.Equals("Zakończ test")) {
-                Question.Answer = answer.Text;
+                    IndexOfQuestion++;
+                    Question = Test.QuestionsList[IndexOfQuestion];
+                    questionTextBox.Text = Question.Word;
+                    if (IndexOfQuestion == Test.Size - 1)
+                        startNextEnd.Text = "Zakończ test";
 
-                int result = Test.EndTest();
-                score.Text = "Wynik: " + result + "/" + Test.Size;
-                startNextEnd.Text = "Rozpocznij test";
+                }
+                else if (startNextEnd.Text.Equals("Zakończ test"))
+                {
+                    Question.Answer = answer.Text;
+                    answer.Text = "";
+                    questionTextBox.Text = "";
+
+                    int result = Test.EndTest();
+                    score.Text = "Wynik: " + result + "/" + Test.Size;
+                    startNextEnd.Text = "Rozpocznij test";
+                }
             }
+            catch { 
+            }
+            
         }
     }
 }

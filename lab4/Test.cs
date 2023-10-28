@@ -42,6 +42,8 @@ namespace lab4
 
         private List<Question> CreateQuestionsList() {
             HashSet<Question> QuestionsSet = new HashSet<Question>();
+            if (Size > Dictionary.Count)
+                throw new Exception("");
             for (int i = 0; i < Size; i++)
             {
                 var dictionary = new List<KeyValuePair<string, string>>(Dictionary);
