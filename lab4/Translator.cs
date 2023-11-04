@@ -62,7 +62,7 @@ namespace lab4
         public void addNewWord(string word, string translatedWord)
         {
             if (word.Length == 0 || translatedWord.Length == 0)
-                throw new Exception("Słowo nie może być puste");
+                throw new ArgumentException("Słowo nie może być puste");
 
             try
             {
@@ -70,7 +70,7 @@ namespace lab4
             }
             catch (ArgumentException ex)
             {
-                throw new Exception("Słowo już istnieje");
+                throw new ArgumentException("Słowo już istnieje");
             }
           
 
